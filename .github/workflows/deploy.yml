@@ -1,0 +1,40 @@
+name: deploy
+# Builds this repository's image and publishes it to GHCR. Nothing is deployed from here: the home
+# node has no public IP and is reachable only over Tailscale, so GitHub cannot reach in. A cron on
+# the node runs deploy/update.sh every two minutes, pulls the image and restarts the service only
+# when it actually changed.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-molodst-tusa
+  cancel-in-progress: false
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        run: echo "tag=$(echo ${GITHUB_SHA} | cut -c1-7)" >> "$GITHUB_OUTPUT"
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/gent00l/molodst-tusa:latest
+            ghcr.io/gent00l/molodst-tusa:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

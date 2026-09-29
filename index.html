@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOLODST TUSA — русскоязычные тусы в Европе</title>
+<meta name="description" content="MOLODST TUSA — вечеринки. Milano, Superlove, 30.10.2026. Budapest и Madrid — скоро.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 20 20"><path d="M10 19s-6-6.1-6-10.6C4 4.6 6.7 2 10 2s6 2.6 6 6.4C16 12.9 10 19 10 19zm0-8a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2z" fill="currentColor"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 20 20"><path d="M2 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 1 0 0 4v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 1 0 0-4V6zm5 1v6M9.5 7v6M12 7v6" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 20 20"><path d="M10 2a5 5 0 0 0-5 5v3.5L3 14h14l-2-3.5V7a5 5 0 0 0-5-5zM8 16a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4 4 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></symbol>
+</svg>
+
+<header class="topbar">
+  <a class="logo" href="#home"><img src="logo.png" alt="MOLODST TUSA"></a>
+  <nav>
+    <a href="#events" class="is-active">События</a>
+    <a href="#vibe">Вайб</a>
+    <a href="#about">О нас</a>
+  </nav>
+  <nav class="topbar-right">
+    <a href="https://ra.co/events/2548928" target="_blank" rel="noopener">Билеты</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <video class="hero-video" autoplay muted loop playsinline poster="hero-poster.jpg">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-shade"></div>
+  <div class="hero-content">
+    <h1>МОЛОДОСТЬ<br>ТУСА</h1>
+    <p class="hero-sub">Русскоязычные тусы в городах Европы</p>
+    <a class="btn" href="#events"><svg><use href="#i-pin"/></svg>Найти тусу</a>
+    <a class="textlink" href="https://ra.co/events/2548928" target="_blank" rel="noopener">Смотреть на Resident Advisor <svg><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="section" id="events">
+  <div class="section-head">
+    <h2>Ближайшие</h2>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="https://ra.co/events/2548928" target="_blank" rel="noopener">
+      <div class="tile tile-photo">
+        <img src="photo-2.jpg" alt="">
+        <div class="tile-art">
+          <span class="tile-city">MILANO</span>
+          <span class="tile-line">Superlove · 30.10 · 23:00–06:00</span>
+        </div>
+      </div>
+      <div class="card-meta">
+        <div>
+          <p class="card-title">Milano | Пятница</p>
+          <p class="card-date">30 окт 2026</p>
+          <p class="card-place">Superlove, Милан · 30 € · 18+</p>
+        </div>
+        <span class="card-action"><svg><use href="#i-ticket"/></svg>Билеты</span>
+      </div>
+    </a>
+
+    <button class="card notify" data-city="BUDAPEST">
+      <div class="tile tile-red">
+        <div class="tile-art">
+          <span class="tile-city">BUDAPEST</span>
+          <span class="tile-line">Дата скоро</span>
+        </div>
+      </div>
+      <div class="card-meta">
+        <div>
+          <p class="card-title">Budapest</p>
+          <p class="card-date">Дата скоро</p>
+          <p class="card-place">Будапешт</p>
+        </div>
+        <span class="card-action"><svg><use href="#i-bell"/></svg>Узнать первым</span>
+      </div>
+    </button>
+
+    <button class="card notify" data-city="MADRID">
+      <div class="tile tile-ink">
+        <div class="tile-art">
+          <span class="tile-city">MADRID</span>
+          <span class="tile-line">Дата скоро</span>
+        </div>
+      </div>
+      <div class="card-meta">
+        <div>
+          <p class="card-title">Madrid</p>
+          <p class="card-date">Дата скоро</p>
+          <p class="card-place">Мадрид</p>
+        </div>
+        <span class="card-action"><svg><use href="#i-bell"/></svg>Узнать первым</span>
+      </div>
+    </button>
+  </div>
+</section>
+
+<section class="section" id="vibe">
+  <div class="section-head">
+    <h2>Вайб</h2>
+  </div>
+  <div class="rail">
+    <figure class="media">
+      <img src="photo-2.jpg" alt="Толпа с файерами">
+      <figcaption><strong>Файеры</strong>Так выглядит пик ночи.</figcaption>
+    </figure>
+    <figure class="media">
+      <img src="photo-1.jpg" alt="Танцпол">
+      <figcaption><strong>Танцпол</strong>Ты приходишь один — уходишь со своими.</figcaption>
+    </figure>
+    <figure class="media">
+      <img src="hero-poster.jpg" alt="Свет и толпа">
+      <figcaption><strong>Свет</strong>Музыка, энергия, знакомые лица.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section about" id="about">
+  <div class="section-head">
+    <h2>О нас</h2>
+  </div>
+  <div class="about-cols">
+    <p>Молодость Туса — это проект, который мы создали, чтобы собирать своих людей в разных городах и делать настоящие тусовки. Без лишнего пафоса и сложных правил. Просто музыка, энергия, танцы, крики, знакомые лица и люди, с которыми можно быть собой.</p>
+    <p>Мы хотим создавать место, где неважно, откуда ты приехал и давно ли ты в этом городе. Ты приходишь один — а уходишь уже со своими. Мы делаем не просто вечеринки. Мы создаём своё движение и собираем его в разных городах Европы.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <img src="logo.png" alt="MOLODST TUSA">
+  <nav>
+    <a href="#">Instagram</a>
+    <a href="#">Telegram</a>
+    <a href="https://ra.co/events/2548928" target="_blank" rel="noopener">Resident Advisor</a>
+  </nav>
+  <span>© 2026 MOLODST TUSA</span>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="close" aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
+    <h3 id="modalCity">BUDAPEST</h3>
+    <p id="modalText">Дату и старт продаж объявим в Telegram-канале.</p>
+    <a class="btn" id="modalLink" href="#">Подписаться в Telegram</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

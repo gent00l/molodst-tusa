@@ -1,0 +1,21 @@
+# Lives at /home/mango/molodst-tusa-stack on the home node. CI only publishes the image; the node pulls it.
+# The container joins the shared external `web` network, so the Cloudflare tunnel routes a
+# hostname straight to it — nothing is published to a host port.
+name: molodst-tusa
+
+services:
+  molodst-tusa:
+    image: ghcr.io/gent00l/molodst-tusa:${IMAGE_TAG:-latest}
+    container_name: molodst-tusa
+    restart: unless-stopped
+    env_file: .env
+    networks: [web]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  web:
+    external: true
