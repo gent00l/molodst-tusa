@@ -22,7 +22,7 @@
 <header class="topbar">
   <a class="logo" href="#home"><img src="logo.png" alt="MOLODST TUSA"></a>
   <nav>
-    <a href="#events" class="is-active">События</a>
+    <a href="#events">События</a>
     <a href="#vibe">Вайб</a>
     <a href="#about">О нас</a>
   </nav>
@@ -36,6 +36,7 @@
   <video class="hero-video" autoplay muted loop playsinline poster="hero-poster.jpg">
     <source src="hero-video.mp4" type="video/mp4">
   </video>
+  <div class="hero-3d" id="hero3d" aria-hidden="true"></div>
   <div class="hero-shade"></div>
   <div class="hero-content">
     <h1>МОЛОДОСТЬ<br>ТУСА</h1>
@@ -133,6 +134,7 @@
     <p>Молодость Туса — это проект, который мы создали, чтобы собирать своих людей в разных городах и делать настоящие тусовки. Без лишнего пафоса и сложных правил. Просто музыка, энергия, танцы, крики, знакомые лица и люди, с которыми можно быть собой.</p>
     <p>Мы хотим создавать место, где неважно, откуда ты приехал и давно ли ты в этом городе. Ты приходишь один — а уходишь уже со своими. Мы делаем не просто вечеринки. Мы создаём своё движение и собираем его в разных городах Европы.</p>
   </div>
+  <canvas class="fire" id="fireCanvas" aria-hidden="true"></canvas>
 </section>
 </main>
 
@@ -143,7 +145,7 @@
     <a href="#">Telegram</a>
     <a href="https://ra.co/events/2548928" target="_blank" rel="noopener">Resident Advisor</a>
   </nav>
-  <span>© 2026 MOLODST TUSA</span>
+  <span>© 2026 MOLODST TUSA · 3D «Flare» by <a href="https://sketchfab.com/FrodoUndead" target="_blank" rel="noopener">FrodoUndead</a>, CC-BY-4.0</span>
 </footer>
 
 <div class="modal" id="modal">
@@ -159,5 +161,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="script.js"></script>
+<script src="fire.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module" src="hero3d.js"></script>
 </body>
 </html>

@@ -19,17 +19,6 @@ document.getElementById('close').onclick=closeModal;
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-// активный пункт меню по секции в зоне видимости
-const navLinks=[...document.querySelectorAll('.topbar nav a[href^="#"]')];
-const sections=navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-const setActive=()=>{
-  const y=window.scrollY+120;
-  let current=sections[0];
-  sections.forEach(s=>{if(s.offsetTop<=y)current=s});
-  navLinks.forEach(a=>a.classList.toggle('is-active',a.getAttribute('href')==='#'+current.id));
-};
-window.addEventListener('scroll',setActive,{passive:true});setActive();
-
 /* ---------- плавный скролл + лёгкий параллакс (GSAP ScrollTrigger + Lenis) ---------- */
 (function(){
   if(!window.gsap||!window.ScrollTrigger)return;
@@ -59,4 +48,17 @@ window.addEventListener('scroll',setActive,{passive:true});setActive();
   gsap.utils.toArray('.tile img,.media img').forEach(img=>{
     gsap.fromTo(img,{yPercent:-8,scale:1.16},{yPercent:8,scale:1.16,ease:'none',scrollTrigger:scrub(img.parentElement)});
   });
+
+  // незаметный параллакс по всему сайту: заголовки секций и карточки едут с разной скоростью
+  gsap.utils.toArray('.section-head').forEach(el=>{
+    gsap.fromTo(el,{y:24},{y:-24,ease:'none',scrollTrigger:scrub(el.closest('.section'))});
+  });
+  gsap.utils.toArray('.grid .card, .rail .media').forEach((el,i)=>{
+    const d=10+(i%3)*8;
+    gsap.fromTo(el,{y:d},{y:-d,ease:'none',scrollTrigger:scrub(el.closest('.section'))});
+  });
+  gsap.utils.toArray('.about-cols p').forEach((el,i)=>{
+    gsap.fromTo(el,{y:16+i*10},{y:-(16+i*10),ease:'none',scrollTrigger:scrub('.about')});
+  });
+
 })();
