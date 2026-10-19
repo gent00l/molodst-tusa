@@ -1,5 +1,4 @@
-// TODO: подставить реальную ссылку на Telegram-канал
-const TELEGRAM_URL='#';
+const TELEGRAM_URL='https://t.me/molodostusamilan';
 
 const modal=document.getElementById('modal'),
       city=document.getElementById('modalCity'),
