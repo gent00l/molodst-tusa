@@ -1,12 +1,7 @@
-const TELEGRAM_URL='https://t.me/molodostusamilan';
-
 const modal=document.getElementById('modal'),
       city=document.getElementById('modalCity'),
-      text=document.getElementById('modalText'),
-      link=document.getElementById('modalLink');
+      text=document.getElementById('modalText');
 const DEFAULT_TEXT=text.textContent;
-link.href=TELEGRAM_URL;
-document.querySelectorAll('footer a').forEach(a=>{if(/telegram/i.test(a.textContent))a.href=TELEGRAM_URL});
 
 function closeModal(){modal.classList.remove('show')}
 document.querySelectorAll('.notify').forEach(b=>b.addEventListener('click',()=>{
