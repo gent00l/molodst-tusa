@@ -6,13 +6,17 @@ const host = document.getElementById('hero3d');
 if (host && !matchMedia('(prefers-reduced-motion: reduce)').matches) init(host);
 
 function init(host) {
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  // телефоны: меньше пикселей и частиц — огонь всё равно мягкий, разницы не видно, а кадр в разы дешевле
+  const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+  const renderer = new THREE.WebGLRenderer({ antialias: !mobile, alpha: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1 : 1.5));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.85;
   host.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x000000, 28, 52); // дальний край модели уходит в темноту фона
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
   camera.position.set(0, 2, 34);
 
@@ -49,7 +53,7 @@ function init(host) {
   rig.rotation.z = -0.55; rig.rotation.x = 0.15;
 
   /* ---------- частицы огня ---------- */
-  const N = 1600;
+  const N = mobile ? 380 : 700;
   const geo = new THREE.BufferGeometry();
   const pos = new Float32Array(N * 3), life = new Float32Array(N), seed = new Float32Array(N), sizes = new Float32Array(N);
   const vel = new Float32Array(N * 3), age = new Float32Array(N);
@@ -70,7 +74,7 @@ function init(host) {
       void main(){
         vT = clamp(aAge / aLife, 0.0, 1.0); vSeed = aSeed;
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        float grow = 1.0 + vT * 2.2;
+        float grow = 1.0 + vT * 1.6;
         gl_PointSize = aSize * grow * uScale * (420.0 / -mv.z);
         gl_Position = projectionMatrix * mv;
       }`,
@@ -88,14 +92,14 @@ function init(host) {
         vec3 c2 = vec3(0.85, 0.12, 0.02);  // красный дым
         vec3 col = mix(c0, c1, smoothstep(0.0, 0.45, vT));
         col = mix(col, c2, smoothstep(0.45, 1.0, vT));
-        float a = soft * (1.0 - vT * vT) * 0.6;
+        float a = soft * (1.0 - vT * vT) * 0.75;
         gl_FragColor = vec4(col, a);
       }`
   });
   const points = new THREE.Points(geo, mat); scene.add(points);
 
   /* ---------- фон сцены: угольки и пыль, медленно плывут вверх по всему hero ---------- */
-  const AN = 420, aGeo = new THREE.BufferGeometry(), aPos = new Float32Array(AN * 3), aSeed = new Float32Array(AN), aSize = new Float32Array(AN);
+  const AN = mobile ? 120 : 220, aGeo = new THREE.BufferGeometry(), aPos = new Float32Array(AN * 3), aSeed = new Float32Array(AN), aSize = new Float32Array(AN);
   const AREA = { x: 34, y: 22, z: 14 };
   for (let i = 0; i < AN; i++) {
     aPos[i * 3] = (Math.random() - 0.5) * AREA.x; aPos[i * 3 + 1] = (Math.random() - 0.5) * AREA.y; aPos[i * 3 + 2] = (Math.random() - 0.5) * AREA.z - 4;
@@ -190,16 +194,17 @@ function init(host) {
     rig.rotation.z = -0.55 + Math.sin(t * 0.6) * 0.06 - ctl.tx * 0.08;
     aMat.uniforms.uTime.value = t;
 
+    let respawned = false;
     for (let i = 0; i < N; i++) {
       age[i] += dt;
-      if (age[i] >= life[i]) { respawn(i); continue; }
+      if (age[i] >= life[i]) { respawn(i); respawned = true; continue; }
       const k = i * 3, wob = Math.sin(t * 9 + seed[i] * 30) * 2.5;
       vel[k] += (wob - vel[k] * 0.9) * dt; vel[k + 2] += (Math.cos(t * 7 + seed[i] * 20) * 2.5 - vel[k + 2] * 0.9) * dt;
       vel[k] += up.x * 6 * dt; vel[k + 1] += (up.y * 6 - 2) * dt; vel[k + 2] += up.z * 6 * dt; // тяга вдоль фаера
       pos[k] += vel[k] * dt; pos[k + 1] += vel[k + 1] * dt; pos[k + 2] += vel[k + 2] * dt;
     }
     geo.attributes.position.needsUpdate = true; geo.attributes.aAge.needsUpdate = true;
-    geo.attributes.aLife.needsUpdate = true; geo.attributes.aSize.needsUpdate = true;
+    if (respawned) { geo.attributes.aLife.needsUpdate = true; geo.attributes.aSize.needsUpdate = true; }
 
     tip.getWorldPosition(fireLight.position); fireLight.position.y += 1.5;
     fireLight.intensity = 140 + Math.sin(t * 17) * 35 + Math.sin(t * 31) * 20;
