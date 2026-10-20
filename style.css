@@ -83,6 +83,8 @@ p{margin:0}
 .card-action{display:inline-flex;align-items:center;gap:6px;color:var(--muted-2);font-size:13px;font-weight:600;text-transform:uppercase;line-height:1.56;white-space:nowrap}
 .card-action svg{width:16px;height:16px}
 .card:hover .card-action{color:var(--ink)}
+.card-action.sold-out,.card:hover .card-action.sold-out{color:var(--accent)}
+.tile-badge{margin-top:var(--s2);padding:6px 12px;background:var(--accent);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1}
 
 /* ---------- вайб: лента 16:10, подпись поверх BR-градиента (0.8 → 0.25) ---------- */
 .rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,1fr);gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}
