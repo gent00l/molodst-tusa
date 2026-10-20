@@ -86,6 +86,12 @@ p{margin:0}
 .card-action.sold-out,.card:hover .card-action.sold-out{color:var(--accent)}
 .tile-badge{margin-top:var(--s2);padding:6px 12px;background:var(--accent);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1}
 
+/* ---------- мерч: две квадратные плитки + цена и кнопка в Telegram ---------- */
+.merch{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s4)}
+.merch-info{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2)}
+.merch-price{font-family:var(--display);font-weight:700;font-size:56px;line-height:1;margin:var(--s2) 0 var(--s3)}
+.merch-note{color:var(--muted);margin-top:var(--s2);max-width:320px}
+
 /* ---------- вайб: лента 16:10, подпись поверх BR-градиента (0.8 → 0.25) ---------- */
 .rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,1fr);gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
@@ -123,11 +129,13 @@ footer>span{margin-left:auto;font-size:12px;line-height:1.43}
 @media(max-width:992px){
   .grid{grid-template-columns:repeat(2,1fr)}
   .about-cols{grid-template-columns:1fr}
+  .merch{grid-template-columns:1fr 1fr}.merch-info{grid-column:1/-1}
 }
 @media(max-width:640px){
   .topbar{height:60px;gap:var(--s3)}.topbar nav a{height:60px;font-size:13px}.topbar nav{gap:var(--s3)}.logo img{width:92px}
   .hero{padding-top:100px}.hero .btn{width:100%}
   .grid{grid-template-columns:1fr}
+  .nav-wide{display:none}.merch .btn{width:100%}
   .rail{grid-auto-columns:82vw}
   footer{flex-wrap:wrap}footer>span{margin-left:0;width:100%}
 }
